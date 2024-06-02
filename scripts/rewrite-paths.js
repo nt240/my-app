@@ -15,12 +15,10 @@ fs.readdir(directoryPath, function (err, files) {
 
     // エントリがファイルであることを確認します。
     if (fs.statSync(filePath).isFile()) {
-    console.log('Processing file:', filePath);
       // ファイルの内容を読み込みます。
       let content = fs.readFileSync(filePath, 'utf8');
-
       // パスを書き換えます。
-      content = content.replace('src="/', 'src="/my-app/');
+      content = content.replaceAll('src="/', 'src="/my-app/');
       // ファイルに書き込みます。
       fs.writeFileSync(filePath, content, 'utf8');
     }
