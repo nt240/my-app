@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 
 // パスを書き換えるディレクトリを指定します。
