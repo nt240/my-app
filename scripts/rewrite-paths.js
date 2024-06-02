@@ -11,14 +11,19 @@ fs.readdir(directoryPath, function (err, files) {
 
   // ディレクトリ内のすべてのファイルを処理します。
   files.forEach(function (file) {
-    // ファイルの内容を読み込みます。
-    let content = fs.readFileSync(path.join(directoryPath, file), 'utf8');
+    const filePath = path.join(directoryPath, file);
 
-    // パスを書き換えます。
-    content = content.replace('/vercel.svg', '/my-app/vercel.svg');
-    content = content.replace('/next.svg', '/my-app/next.svg');
+    // エントリがファイルであることを確認します。
+    if (fs.statSync(filePath).isFile()) {
+      // ファイルの内容を読み込みます。
+      let content = fs.readFileSync(filePath, 'utf8');
 
-    // ファイルに書き込みます。
-    fs.writeFileSync(path.join(directoryPath, file), content, 'utf8');
+      // パスを書き換えます。
+      content = content.replace('/vercel.svg', '/my-app/vercel.svg');
+      content = content.replace('/next.svg', '/my-app/next.svg');
+
+      // ファイルに書き込みます。
+      fs.writeFileSync(filePath, content, 'utf8');
+    }
   });
 });
